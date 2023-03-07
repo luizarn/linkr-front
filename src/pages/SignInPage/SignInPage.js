@@ -1,3 +1,46 @@
+import styled from "styled-components";
+import Input from "../../components/input/Input";
+import Button from "../../components/button/Button";
+import { Link } from "react-router-dom";
+import LayoutHome from "../LayoutHome/LayoutHome";
+
 export default function SignInPage() {
-    return(<></>)
+  return (
+    <>
+      <Content>
+        <LayoutHome />
+        <RighBar>
+          <Input placeholder="e-mail" />
+          <Input placeholder="password" />
+          <Button text="Log In" />
+          <Link to="/sign-up">
+            <h1>First time? Create an account</h1>
+          </Link>
+        </RighBar>
+      </Content>
+    </>
+  );
 }
+
+const Content = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+`;
+const RighBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  h1 {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #ffffff;
+    text-decoration-line: underline;
+  }
+`;

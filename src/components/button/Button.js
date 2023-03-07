@@ -1,9 +1,25 @@
 import styled from "styled-components";
-export default function Button() {
+export default function Button({text, onClick}) {
     return(<>
-    <ButtonExemple></ButtonExemple>
+    <ButtonExemple onClick={onClick}>
+        {text}
+    </ButtonExemple>
     </>)
 }
 const ButtonExemple = styled.div`
-
+    width: 326px;
+	height: 58px;
+    background: #1877F2;
+	border-radius: 6px;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 40px;
+    margin: 13px 0 13px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
