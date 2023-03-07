@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export default function Input({ placeholder, type, onChange, name, value }) {
+export default function Input({ placeholder, type, onChange, name, value, required }) {
   return (
     <>
       <InputExemple
@@ -7,6 +7,7 @@ export default function Input({ placeholder, type, onChange, name, value }) {
         type={type}
         name={name}
         onChange={onChange}
+        required={required}
       ></InputExemple>
     </>
   );

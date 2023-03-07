@@ -3,16 +3,35 @@ import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import { Link } from "react-router-dom";
 import LayoutHome from "../LayoutHome/LayoutHome";
+import { useContext, useEffect, useState } from "react";
 
 export default function SignInPage() {
-    
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  function Form(e) {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  }
   return (
     <>
       <Content>
         <LayoutHome />
         <RighBar>
-          <Input placeholder="e-mail" />
-          <Input placeholder="password" />
+          <Input 
+          placeholder="e-mail"
+          name="email"
+          type="text"
+          onChange={Form}
+          />
+          <Input 
+          placeholder="password" 
+          name="password"
+          type="password"
+          onChange={Form}
+          />
           <Button text="Log In" />
           <Link to="/sign-up">
             <h1>First time? Create an account</h1>
@@ -50,8 +69,9 @@ const RighBar = styled.div`
   @media (max-width: 800px) {
     width: 100%;
     margin-top: 40px;
-    input, button{
-        width: 80%;
+    input,
+    button {
+      width: 80%;
     }
   }
 `;

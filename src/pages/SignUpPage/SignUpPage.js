@@ -3,17 +3,53 @@ import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import { Link } from "react-router-dom";
 import LayoutHome from "../LayoutHome/LayoutHome";
+import { useContext, useEffect, useState } from "react";
+
 export default function SignUpPage() {
+    const [form, setForm] = useState({
+        email: "",
+        password: "",
+        username: "",
+        pictureUrl: ""
+      });
+    
+      function Form(e) {
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+      }
   return (
     <>
       <Content>
         <LayoutHome />
         <RighBar>
-          <Input placeholder="e-mail" />
-          <Input placeholder="password" />
-          <Input placeholder="username" />
-          <Input placeholder="picture url" />
-          <Button text="Log In" />
+          <Input 
+            placeholder="e-mail"
+            name="email"
+            type="text"
+            onChange={Form}
+          />
+          <Input 
+            placeholder="password"
+            name="password"
+            type="password"
+            onChange={Form}
+            required="true"
+          />
+          <Input 
+            placeholder="username"
+            name="username"
+            type="text"
+            onChange={Form}
+          />
+          <Input 
+            placeholder="picture url"
+            name="pictureUrl"
+            type="url"
+            onChange={Form}
+          />
+          <Button 
+            text="Log In" 
+          />
           <Link to="/">
             <h1>Switch back to log in</h1>
           </Link>
