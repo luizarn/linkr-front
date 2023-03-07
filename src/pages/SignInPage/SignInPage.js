@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import LayoutHome from "../LayoutHome/LayoutHome";
 
 export default function SignInPage() {
+    
   return (
     <>
       <Content>
@@ -27,13 +28,16 @@ const Content = styled.div`
   height: auto;
   display: flex;
   flex-direction: row;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 const RighBar = styled.div`
+  width: 30%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30%;
   h1 {
     font-family: "Lato";
     font-style: normal;
@@ -42,5 +46,12 @@ const RighBar = styled.div`
     line-height: 24px;
     color: #ffffff;
     text-decoration-line: underline;
+  }
+  @media (max-width: 800px) {
+    width: 100%;
+    margin-top: 40px;
+    input, button{
+        width: 80%;
+    }
   }
 `;

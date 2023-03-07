@@ -14,20 +14,22 @@ export default function SignUpPage() {
           <Input placeholder="username" />
           <Input placeholder="picture url" />
           <Button text="Log In" />
-          <Link to="/sign-up">
-            <h1>First time? Create an account</h1>
+          <Link to="/">
+            <h1>Switch back to log in</h1>
           </Link>
         </RighBar>
       </Content>
     </>
   );
 }
-
 const Content = styled.div`
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: row;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 const RighBar = styled.div`
   display: flex;
@@ -43,5 +45,12 @@ const RighBar = styled.div`
     line-height: 24px;
     color: #ffffff;
     text-decoration-line: underline;
+  }
+  @media (max-width: 800px) {
+    width: 100%;
+    margin-top: 40px;
+    input, button{
+        width: 80%;
+    }
   }
 `;

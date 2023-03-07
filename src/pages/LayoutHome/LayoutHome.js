@@ -26,7 +26,7 @@ const LeftBar = styled.div`
     width: 400px;
     text-align: start;
   }
-  h2{
+  h2 {
     font-size: 43px;
     line-height: 64px;
     color: #ffffff;
@@ -38,5 +38,26 @@ const LeftBar = styled.div`
     font-size: 106px;
     line-height: 117px;
     color: #ffffff;
+  }
+  @media (max-width: 800px) {
+    width: 100%;
+    height: 200px;
+    font-size: 20px;
+    div {
+      width: 237px;
+      font-size: 20px;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 76px;
+      line-height: 84px;
+      text-align: center;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: 23px;
+      line-height: 34px;
+      text-align: center;
+    }
   }
 `;

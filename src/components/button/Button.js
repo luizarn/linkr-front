@@ -6,8 +6,8 @@ export default function Button({text, onClick}) {
     </ButtonExemple>
     </>)
 }
-const ButtonExemple = styled.div`
-    width: 326px;
+const ButtonExemple = styled.button`
+    width: 60%;
 	height: 58px;
     background: #1877F2;
 	border-radius: 6px;
@@ -22,4 +22,5 @@ const ButtonExemple = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
 `
