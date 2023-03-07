@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignInPage from "./pages/SignInPage/SignInPage.js";
 import SignUpPage from "./pages/SignUpPage/SignUpPage.js";
 import AuthProvider from "./contexts/AuthContext.js";
+import HashtagPage from "./pages/HashtagPage/HashtagPage.js";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<SignUpPage />} />
             <Route path="/sign-up" element={<SignInPage />} />
+            <Route path="/hashtag" element={<HashtagPage/>}/>
           </Routes>
         </AuthProvider>
       </Content>
