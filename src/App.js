@@ -14,8 +14,8 @@ export default function App() {
         <GlobalStyle />
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<SignUpPage />} />
-            <Route path="/sign-up" element={<SignInPage />} />
+            <Route path="/" element={<SignInPage />} />
+            <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/hashtag" element={<HashtagPage/>}/>
           </Routes>
         </AuthProvider>

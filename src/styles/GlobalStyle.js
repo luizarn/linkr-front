@@ -49,27 +49,28 @@ table {
 	box-sizing: border-box;
 }
 div{
-	font-family: 'Raleway';
+	font-family: 'Oswald';
 }
 p{
-	font-family: 'Raleway';
+	font-family: 'Oswald';
 	font-weight: 700;
 	font-size: 20px;
 	line-height: 23px;
 	color: #FFFFFF;
 }
-input{
+/* input{
 	width: 326px;
 	height: 58px;
 	background: #FFFFFF;
+	border: none;
 	border-radius: 5px;
-	font-family: 'Raleway';
+	font-family: 'Oswald';
 	font-style: normal;
-	font-weight: 400;
-	font-size: 20px;
-	line-height: 23px;
-	margin-bottom: 13px;
-}
+	font-weight: 700;
+	font-size: 27px;
+	line-height: 40px;
+	margin-top: 13px;
+} */
 input:focus{
 	box-shadow: 0 0 0 0;
     outline: 0;
