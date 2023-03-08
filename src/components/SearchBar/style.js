@@ -43,9 +43,32 @@ export const SearchContainer = styled.div`
 `;
 
 export const HiddenBox = styled.div`
-    display: ${props => props.open ? "block" : "none" };
+    display: ${props => props.open ? "block" : "none"};
     width: 563px;
     height: 131px;
     background: #E7E7E7;
     border-radius: 8px;
+    overflow-y: auto;
+`
+export const HiddenUsers = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+
+    img {
+        object-fit: cover;
+        width: 39px;
+        height: 39px;
+        border-radius: 50%;
+        }
+
+    h2 {    
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19px;
+        line-height: 23px;
+        margin: 0 10px;
+        }
 `
