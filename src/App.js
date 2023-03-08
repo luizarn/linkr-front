@@ -28,7 +28,7 @@ export default function App() {
 
 const Content = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: #333333;
   display: flex;
   justify-content: center;
