@@ -3,7 +3,7 @@ export default function Header() {
     return (
       <>
         <HeaderBox>
-            
+            <h1>linkr</h1>
         </HeaderBox>
       </>
     );
@@ -13,6 +13,8 @@ export default function Header() {
     height: 75px;
     position: fixed;
     background-color: #151515;
+    display: flex;
+    align-items: center;
   h1 {
     font-family: 'Passion One';
     font-style: normal;
@@ -20,5 +22,6 @@ export default function Header() {
     font-size: 49px;
     line-height: 54px;
     color: white;
+    margin-left: 10px;
   }
   `
