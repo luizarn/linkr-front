@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/header/Header";
 import Post from "../../components/timelinePosts/post";
@@ -6,14 +6,55 @@ import TrendingTags from "../../components/TrendingTags/TrendingTags";
 
 
 export default function TimelinePage() {
-    // const { name } = useContext(PagesContext)
+    
+    // const { token } = useContext(tokenContext)
     const [url, setUrl] = useState('')
     const [description, setDescription] = useState('')
-    // const navigate = useNavigate()
+    const [isPublishing, setIsPublishing] = useState(false);
+    const [posts, setPosts] = useState([])
+
+
+    // useEffect(() => {
+    //     const promise = axios.get(`${process.env.REACT_APP_API_URL}/home`, {
+    //       headers:
+    //         { Authorization: `Bearer ${token}`, user }
+    //     })
+    //     promise.then(res => {
+    //       console.log(res.data)
+    //       setPosts(res.data)
+    //     })
+    
+    //     promise.catch(err => console.log(err.response.data))
+    
+    //   }, [ addPost()]);
+  
+    
 
     function addPost(e) {
         e.preventDefault()
-        // navigate('/concluidoe')
+        // setIsPublishing(true);
+
+        // const body = {url, description }
+
+        // const promise = axios.post(`${process.env.REACT_APP_API_URL}/new-entrance`, body, {
+        // //   headers:
+        // //     { Authorization: `Bearer ${token}`, user }
+        // })
+
+    
+        // promise.then(res => {
+        //   console.log(res.data)
+        //   console.log(res.data.token)
+        //   setUrl("")
+        //   setIsPublishing(false)
+        //   console.log(posts)
+        // })
+        // promise.catch(err => {
+        //   console.log(err.response.data.message)
+        //   alert("There was an error publishing your link")
+        //   setIsPublishing(false)
+        // })
+
     }
 
 
@@ -31,20 +72,23 @@ export default function TimelinePage() {
                         <h1>What are you going to share today?</h1>
                         <FormPost onSubmit={(e) => addPost(e)}>
                 
-                  <NormalInput required onChange={(e) => setUrl(e.target.value)} placeholder="http:// ..." type="url" />
-                  <BigInput required onChange={(e) => setDescription(e.target.value)} placeholder="Awesome article about #javascript" type="text" />
-                  <button type="submit">Publish</button>
+                  <NormalInput required onChange={(e) => setUrl(e.target.value)} placeholder="http:// ..." type="url" disabled={isPublishing} />
+                  <BigInput onChange={(e) => setDescription(e.target.value)} placeholder="Awesome article about #javascript" type="text" disabled={isPublishing} />
+                  <button type="submit" disabled={isPublishing}>{isPublishing? 'Publishing...' : 'Publish'}</button>
                 </FormPost>
                     </RightBoxPost>
           
                 </BoxAddPost>
 
                 <div>
-                {/* {cards.map((c) => ( */}
-                    <Post/>
-                    <Post/>
-
-                {/* ))} */}
+                {/* {posts.map((p) => (
+                    <Post
+                    url = {p.url}
+                    description = {p.description}
+                    />
+                ))} */}
+                <Post />
+                <Post />
                 </div>
                    </P1>
                    <P2>
