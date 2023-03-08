@@ -6,6 +6,7 @@ import SignInPage from "./pages/SignInPage/SignInPage.js";
 import SignUpPage from "./pages/SignUpPage/SignUpPage.js";
 import AuthProvider from "./contexts/AuthContext.js";
 import HashtagPage from "./pages/HashtagPage/HashtagPage.js";
+import TimelinePage from "./pages/TimelinePage/TimelinePage.js";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/timeline" element={<TimelinePage/>}/>
             <Route path="/hashtag" element={<HashtagPage/>}/>
           </Routes>
         </AuthProvider>
@@ -26,7 +28,7 @@ export default function App() {
 
 const Content = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: #333333;
   display: flex;
   justify-content: center;

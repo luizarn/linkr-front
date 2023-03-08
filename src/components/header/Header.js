@@ -30,11 +30,18 @@ const HeaderBox = styled.div`
     font-size: 49px;
     line-height: 54px;
     color: white;
+    margin-left: 10px;
   }
-  img {
-    width: 53px;
-    height: 53px;
+  img{
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
+    margin-right: 9px;
   }
-
-`;
+  @media (max-width: 800px) {
+   h1{
+    font-size: 45px;
+    line-height: 50px;
+   } 
+  }
+  `
