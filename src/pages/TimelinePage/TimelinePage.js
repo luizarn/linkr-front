@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/header/Header";
 import Post from "../../components/timelinePosts/post";
+import TrendingTags from "../../components/TrendingTags/TrendingTags";
 
 
 export default function TimelinePage() {
@@ -21,18 +22,19 @@ export default function TimelinePage() {
             <Content>
                 <Header/>
                 <Container>
-                <Title>timeline</Title>
-                <BoxAddPost>
-                <ImgProfile
-               src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
+                  <P1>
+                  <Title>timeline</Title>
+                  <BoxAddPost>
+                  <ImgProfile
+                    src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
                     <RightBoxPost>
                         <h1>What are you going to share today?</h1>
                         <FormPost onSubmit={(e) => addPost(e)}>
                 
-                <NormalInput required onChange={(e) => setUrl(e.target.value)} placeholder="http:// ..." type="url" />
-                <BigInput required onChange={(e) => setDescription(e.target.value)} placeholder="Awesome article about #javascript" type="text" />
-                <button type="submit">Publish</button>
-            </FormPost>
+                  <NormalInput required onChange={(e) => setUrl(e.target.value)} placeholder="http:// ..." type="url" />
+                  <BigInput required onChange={(e) => setDescription(e.target.value)} placeholder="Awesome article about #javascript" type="text" />
+                  <button type="submit">Publish</button>
+                </FormPost>
                     </RightBoxPost>
           
                 </BoxAddPost>
@@ -43,9 +45,13 @@ export default function TimelinePage() {
                     <Post/>
 
                 {/* ))} */}
-            </div>
-
-                
+                </div>
+                   </P1>
+                   <P2>
+                     <TagsDiv>
+                       <TrendingTags/>
+                     </TagsDiv>
+                   </P2>
                 </Container>
             </Content>
 
@@ -62,7 +68,8 @@ const Content = styled.div`
   @media (max-width: 800px) {
     flex-direction: column;
   }
-`;
+`
+;
 
 export const Title = styled.h1`
     margin-top: 130px;
@@ -77,13 +84,13 @@ export const Title = styled.h1`
 `
 const Container = styled.div`
 margin-top: 130px;
-
   margin: 0 auto;
     width: 100%;
   height: auto;
-  max-width: 611px;
-  /* display: flex; */
-  /* flex-direction: row; */
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
   @media (max-width: 800px) {
     flex-direction: column;
     width: 100%;
@@ -186,3 +193,18 @@ width: 50px;
 height: 50px;
 border-radius: 50%;
 `
+
+const TagsDiv = styled.div`
+   margin-top: 215px;
+`
+
+const P1 = styled.div`
+   
+`
+
+const P2 = styled.div`
+@media (max-width: 800px) {
+  visibility: none;
+  }
+`
+
