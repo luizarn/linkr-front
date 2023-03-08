@@ -44,7 +44,7 @@ export default function SignInPage() {
 
 const Content = styled.div`
   width: 100%;
-  height: auto;
+  height: 100vh;
   display: flex;
   flex-direction: row;
   @media (max-width: 800px) {
