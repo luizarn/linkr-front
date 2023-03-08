@@ -1,24 +1,30 @@
 import styled from "styled-components";
+import { IoIosArrowUp } from "react-icons/io";
 export default function Header() {
   return (
     <>
       <HeaderBox>
-        <h1>linkr</h1>
-        <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt="" />
+        <div>
+          <h1>linkr</h1>
+        </div>
+        <div>
+        <IoIosArrowUp />
+          <img src="https://s2.glbimg.com/DVfIiTGl-KnJU41UcD9Yoj33MZM=/e.glbimg.com/og/ed/f/original/2021/06/16/doge.jpg" />
+        </div>
       </HeaderBox>
     </>
   );
 }
 const HeaderBox = styled.div`
-    width: 100%;
-    height: 75px;
-    position: fixed;
-    background-color: #151515;
-    display: flex;
-    align-items: center;
-    justify-content:space-between;
+  width: 100%;
+  height: 75px;
+  position: fixed;
+  background-color: #151515;
+  display: flex;
+  justify-content: space-between;
+  padding: 1%;
   h1 {
-    font-family: 'Passion One';
+    font-family: "Passion One";
     font-style: normal;
     font-weight: 700;
     font-size: 49px;
@@ -38,5 +44,4 @@ const HeaderBox = styled.div`
     line-height: 50px;
    } 
   }
-
   `

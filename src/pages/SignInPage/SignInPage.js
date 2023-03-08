@@ -1,15 +1,32 @@
 import styled from "styled-components";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LayoutHome from "../LayoutHome/LayoutHome";
 import { useContext, useEffect, useState } from "react";
+import { API_URL } from "../../API_URL";
+import { AuthContext } from "../../contexts/AuthContext";
+import axios from "axios";
 
 export default function SignInPage() {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+  const { setToken } = useContext(AuthContext);
+  console.log(form)
+
+  function Login(){
+    const post = axios.post(`${API_URL}/sign-in`, form);
+    post.then((res) => {
+      setToken(res.data.token);
+      console.log(res.data);
+      navigate("/");
+    });
+    post.catch((err) => console.log(err.response.data.message));
+  }
 
   function Form(e) {
     const { name, value } = e.target;
@@ -20,20 +37,20 @@ export default function SignInPage() {
       <Content>
         <LayoutHome />
         <RighBar>
-          <Input 
-          placeholder="e-mail"
-          name="email"
-          type="text"
-          onChange={Form}
+          <Input
+            placeholder="e-mail"
+            name="email"
+            type="text"
+            onChange={Form}
           />
-          <Input 
-          placeholder="password" 
-          name="password"
-          type="password"
-          onChange={Form}
+          <Input
+            placeholder="password"
+            name="password"
+            type="password"
+            onChange={Form}
           />
-          <Button text="Log In" />
-          <Link to="/sign-up">
+          <Button text="Log In" onClick={Login}/>
+          <Link to="/sign-up" >
             <h1>First time? Create an account</h1>
           </Link>
         </RighBar>
