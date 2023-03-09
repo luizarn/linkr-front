@@ -9,25 +9,25 @@ import { useEffect } from "react";
 
 export default function hashtagPage() {
   
-  const { hashtag } = useParams();
+  // const { hashtag } = useParams();
 
-  const [posts, setPosts] = useState([]);
-  const [arrayTags, setArrayTags] = useState();
+  // const [posts, setPosts] = useState([]);
+  // const [arrayTags, setArrayTags] = useState();
     
-    useEffect(() => {
-      const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag/${hashtag}`, {
-        headers:
-          { Authorization: `Bearer ${token}` }
-      })
+    // useEffect(() => {
+    //   const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag/${hashtag}`, {
+    //     headers:
+    //       { Authorization: `Bearer ${token}` }
+    //   })
 
-      promise.then(res => {
-        setPosts(res.data)
-        setArrayTags(res.data.arrayTags)
-      })
+    //   promise.then(res => {
+    //     setPosts(res.data)
+    //     setArrayTags(res.data.arrayTags)
+    //   })
   
-      promise.catch(err => console.log(err.response.data))
+    //   promise.catch(err => console.log(err.response.data))
   
-    }, []);
+    // }, []);
 
     return (
         <>
@@ -35,10 +35,10 @@ export default function hashtagPage() {
                 <Header/>
                 <Container>
                   <P1>
-                  <Title># {hashtag}</Title>
+                  {/* <Title># {hashtag}</Title> */}
 
                   <div>
-                {posts.map((p) => (
+                {/* {posts.map((p) => (
                     <Post
                     name= {p.user}
                     descriptionPost = {p.descriptionPost}
@@ -47,13 +47,13 @@ export default function hashtagPage() {
                     url = {p.urlPost.url}
                     image= {p.urlPost.image}
                     />
-                ))}
+                ))} */}
                 
                 </div>
                    </P1>
                    <P2>
                      <TagsDiv>
-                       <TrendingTags arrayTags={arrayTags}/>
+                       {/* <TrendingTags arrayTags={arrayTags}/> */}
                      </TagsDiv>
                    </P2>
                 </Container>

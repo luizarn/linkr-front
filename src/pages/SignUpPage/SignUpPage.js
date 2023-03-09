@@ -17,7 +17,7 @@ export default function SignUpPage() {
         pictureurl: ""
       });
       const navigate = useNavigate();
-
+      console.log(form)
       function SignUp(){
         const post = axios.post(`${API_URL}/sign-up`, form);
         if(!form.email || !form.password || !form.username || !form.pictureurl){
@@ -28,7 +28,7 @@ export default function SignUpPage() {
           console.log(res.data)
           navigate("/");
         });
-        post.catch((err) => console.log(err.response.data.message));
+        post.catch((err) => alert(err.response.data.message));
       }
       function Form(e) {
         const { name, value } = e.target;
@@ -60,13 +60,14 @@ export default function SignUpPage() {
           />
           <Input 
             placeholder="picture url"
-            name="pictureUrl"
+            name="pictureurl"
             type="url"
             onChange={Form}
           />
           <Button 
             text="Sin Up"
             onClick={SignUp}
+            disabled="true"
           />
           <Link to="/">
             <h1>Switch back to log in</h1>
