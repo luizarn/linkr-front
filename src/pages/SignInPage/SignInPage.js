@@ -19,7 +19,7 @@ export default function SignInPage() {
   console.log(form)
 
   function Login(){
-    const post = axios.post(`${API_URL}/sign-in`, form);
+    const post = axios.post(`${process.env.REACT_APP_API_URL}/sign-in`, form);
     post.then((res) => {
       setToken(res.data.token);
       console.log(res.data);

@@ -1,29 +1,30 @@
+import axios from "axios";
 import { useNavigate } from "react-router";
 import { ReactTagify } from "react-tagify";
 import styled from "styled-components";
-export default function Post() {
+export default function Post({name, descriptionPost,title,description,url,image}) {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const tagStyle = {
-      fontWeight: 700,
-      cursor: 'pointer'
-  }
+  // const tagStyle = {
+  //     fontWeight: 700,
+  //     cursor: 'pointer'
+  // }
 
-  async function handleTagClick(tag) {
-      if(tag.type === 'hashtag'){
-        navigate(`/hashtag/${tag.value}`);
-      } else if(tag.type === 'user') {
-        const id = await getUserId(tag.value); // esse tag.value é o nome do usuário pra poder usar na pesquisa
-        navigate(`/user/${id}`)
-      }
-  }
+  // async function handleTagClick(tag) {
+  //     if(tag.type === 'hashtag'){
+  //       navigate(`/hashtag/${tag.value}`);
+  //     } else if(tag.type === 'user') {
+  //       const id = await getUserId(tag.value); // esse tag.value é o nome do usuário pra poder usar na pesquisa
+  //       navigate(`/user/${id}`)
+  //     }
+  // }
 
-  async function getUserId(username){
-      const user = axios.get('endpoint da query')
-      return user.data.id
+  // async function getUserId(username){
+  //     const user = axios.get('endpoint da query')
+  //     return user.data.id
 
-  }
+  // }
 
   return (
         <>
@@ -31,22 +32,22 @@ export default function Post() {
             <ImgProfile
             src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
                  <RightPost>
-                     <h1>Name</h1>
-                      <ReactTagify
+                     <h1>teste</h1>
+                      {/* <ReactTagify
                         tagStyle={tagStyle}
                         mentionStyle={tagStyle}
                         tagClicked={handleTagClick()}
-                      >
-                          <h2>Muito maneiro esse tutorial de Material UI com React, deem uma olhada!</h2>
-                      </ReactTagify>
+                      > */}
+                          <h2>{descriptionPost}</h2>
+                      {/* </ReactTagify> */}
               <BoxPostUrl>
         <InfosPostUrl>
-            <p>Como aplicar o Material UI em um projeto React</p>
-            <h3>Hey! I have moved this tutorial to my personal blog. Same content, new location. Sorry about making you click through to another page.</h3>
-            <h4>https://medium.com/@pshrmn/a-simple-react-router</h4>
+            <p>{title}</p>
+            <h3>{description}</h3>
+            <h4>{url}</h4>
         </InfosPostUrl>
 
-        <ImgPostUrl src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
+        <ImgPostUrl src={image}alt="imageUrl"/>
                      </BoxPostUrl>
                  </RightPost>
                  </BoxPost>
