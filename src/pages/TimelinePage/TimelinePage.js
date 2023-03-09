@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { API_URL } from "../../API_URL";
 import Header from "../../components/header/Header";
 import Post from "../../components/timelinePosts/post";
 import TrendingTags from "../../components/TrendingTags/TrendingTags";
@@ -64,57 +63,65 @@ export default function TimelinePage() {
           alert("There was an error publishing your link")
           setIsPublishing(false)
         })
+  }
 
-    }
+  return (
+    <>
+      <Content>
+        <Header />
+        <Container>
+          <P1>
+            <Title>timeline</Title>
+            <BoxAddPost>
+              <ImgProfile
+                src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt="" />
+              <RightBoxPost>
+                <h1>What are you going to share today?</h1>
+                <FormPost onSubmit={addPost}>
 
-    return (
-        <>
-            <Content>
-                <Header/>
-                <Container>
-                  <P1>
-                  <Title>timeline</Title>
-                  <BoxAddPost>
-                  <ImgProfile
-                    src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
-                    <RightBoxPost>
-                        <h1>What are you going to share today?</h1>
-                        <FormPost onSubmit={(e) => addPost(e)}>
-                
-                  <NormalInput required onChange={(e) => setUrl(e.target.value)} placeholder="http:// ..." type="url" disabled={isPublishing} />
-                  <BigInput onChange={(e) => setDescription(e.target.value)} placeholder="Awesome article about #javascript" type="text" disabled={isPublishing} />
-                  <button type="submit" disabled={isPublishing}>{isPublishing? 'Publishing...' : 'Publish'}</button>
+                  <NormalInput onChange={(e) => setUrl(e.target.value)} value={url} placeholder="http:// ..." type="url" disabled={isPublishing} required />
+                  <BigInput onChange={(e) => setDescription(e.target.value)} value={description} placeholder="Awesome article about #javascript" type="text" disabled={isPublishing} />
+                  <button type="submit" disabled={isPublishing}>{isPublishing ? 'Publishing...' : 'Publish'}</button>
                 </FormPost>
-                    </RightBoxPost>
-          
-                </BoxAddPost>
+              </RightBoxPost>
 
-                <div>
-                {posts.map((p) => (
-                    <Post
-                    name= {p.user}
-                    descriptionPost = {p.descriptionPost}
-                    title= {p.urlPost.title}
-                    description = {p.urlPost.description}
-                    url = {p.urlPost.url}
-                    image= {p.urlPost.image}
-                    />
-                ))}
-                
-                </div>
-                   </P1>
-                   <P2>
-                     <TagsDiv>
-                       <TrendingTags arrayTags={arrayTags}/>
-                     </TagsDiv>
-                   </P2>
-                </Container>
-            </Content>
+            </BoxAddPost>
 
-           
-        </>
+            <div>
+              {isLoading ? (
+                <BoxPost>Loading...</BoxPost>
+              ) : (
+                <>
+                  {posts.length === 0 ? (
 
-    );
+                    <BoxPost>There are no posts yet</BoxPost>
+
+                  ) : (
+
+                    posts.map((p) => (
+                      <Post
+                        name={p.user}
+                        descriptionPost={p.descriptionPost}
+                        title={p.urlPost.title}
+                        description={p.urlPost.description}
+                        url={p.urlPost.url}
+                        image={p.urlPost.image}
+                      />
+                    ))
+                  )}
+                </>
+              )}
+            </div>
+          </P1>
+          <P2>
+            <TagsDiv>
+              <TrendingTags />
+            </TagsDiv>
+          </P2>
+        </Container>
+      </Content>
+    </>
+  );
 }
 const Content = styled.div`
   width: 100%;
@@ -125,14 +132,13 @@ const Content = styled.div`
     flex-direction: column;
   }
 `
-;
+  ;
 
 export const Title = styled.h1`
     margin-top: 130px;
     font-weight: 700;
     font-size: 43px;
     color: #ffffff;
-    /* padding: 10px 0 0 15px; */
     @media (max-width: 800px) {
    margin-left: 17px;
    font-size: 33px;
@@ -264,3 +270,18 @@ const P2 = styled.div`
   }
 `
 
+const BoxPost = styled.div`
+background: #171717;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 16px;
+height: 276px;
+margin-top: 43px;
+margin-bottom: 16px;
+padding: 21px;
+display: flex;
+@media (max-width: 800px) {
+    border-radius: 0px;
+    margin-top: 19px;
+    height: 234px;
+  }
+`
