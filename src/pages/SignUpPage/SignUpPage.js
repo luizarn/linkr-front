@@ -14,12 +14,15 @@ export default function SignUpPage() {
         email: "",
         password: "",
         username: "",
-        pictureUrl: ""
+        pictureurl: ""
       });
       const navigate = useNavigate();
 
       function SignUp(){
-        const post = axios.post(`${API_URL}sign-up`, form);
+        const post = axios.post(`${API_URL}/sign-up`, form);
+        if(!form.email || !form.password || !form.username || !form.pictureurl){
+          return alert("Preencha todos os campos!")
+        }
         post.then((res) => {
           alert("Sucesso! Usuário cadastrado");
           console.log(res.data)

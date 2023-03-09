@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { ReactTagify } from "react-tagify";
 import styled from "styled-components";
-
+import axios from 'axios'
 export default function Post() {
 
   const navigate = useNavigate();
