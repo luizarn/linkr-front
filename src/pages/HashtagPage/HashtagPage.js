@@ -7,19 +7,27 @@ import axios from "axios";
 import { useEffect } from "react";
 
 
-export default function TimelinePage() {
+export default function hashtagPage() {
+  
+  const { hashtag } = useParams();
+
+  const [posts, setPosts] = useState([]);
+  const [arrayTags, setArrayTags] = useState();
     
-    const { hashtag } = useParams();
-    // const [cards,setCards] = useState();
+    useEffect(() => {
+      const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag/${hashtag}`, {
+        headers:
+          { Authorization: `Bearer ${token}` }
+      })
 
-    // useEffect(() => {
-    //     const data = async () => {
-    //         const result = await axios.get('endpoint onde estão os cards');
-    //         setCards(result.data);
-    //     }
-
-    //     data();
-    // }, []);
+      promise.then(res => {
+        setPosts(res.data)
+        setArrayTags(res.data.arrayTags)
+      })
+  
+      promise.catch(err => console.log(err.response.data))
+  
+    }, []);
 
     return (
         <>
@@ -29,17 +37,23 @@ export default function TimelinePage() {
                   <P1>
                   <Title># {hashtag}</Title>
 
-                <div>
-                {/* {cards.map((c) => ( */}
-                    <Post/>
-                    <Post/>
-
-                {/* ))} */}
+                  <div>
+                {posts.map((p) => (
+                    <Post
+                    name= {p.user}
+                    descriptionPost = {p.descriptionPost}
+                    title= {p.urlPost.title}
+                    description = {p.urlPost.description}
+                    url = {p.urlPost.url}
+                    image= {p.urlPost.image}
+                    />
+                ))}
+                
                 </div>
                    </P1>
                    <P2>
                      <TagsDiv>
-                       <TrendingTags/>
+                       <TrendingTags arrayTags={arrayTags}/>
                      </TagsDiv>
                    </P2>
                 </Container>
