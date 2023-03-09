@@ -7,6 +7,7 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage.js";
 import AuthProvider from "./contexts/AuthContext.js";
 import HashtagPage from "./pages/HashtagPage/HashtagPage.js";
 import TimelinePage from "./pages/TimelinePage/TimelinePage.js";
+import SearchBar from "./components/SearchBar/SearchBar.js";
 
 export default function App() {
   return (
@@ -14,12 +15,13 @@ export default function App() {
       <Content>
         <GlobalStyle />
         <AuthProvider>
-          <Routes>
+          {/* <Routes>
             <Route path="/" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/hashtag" element={<HashtagPage/>}/>
             <Route path="/timeline" element={<TimelinePage/>}/>
-          </Routes>
+          </Routes> */}
+           <SearchBar />
         </AuthProvider>
       </Content>
     </BrowserRouter>
