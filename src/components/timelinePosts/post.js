@@ -21,9 +21,6 @@ export default function Post() {
 
   async function getUserId(username){
       const user = axios.get('endpoint da query')
-      query no banco de dados {
-       const user = await db.query(`SELECT id FROM users where username= req.body`)
-      }
       return user.data.id
 
   }
@@ -44,9 +41,9 @@ export default function Post() {
                       </ReactTagify>
               <BoxPostUrl>
         <InfosPostUrl>
-        <p>Como aplicar o Material UI em um projeto React</p>
-        <h3>Hey! I have moved this tutorial to my personal blog. Same content, new location. Sorry about making you click through to another page.</h3>
-        <h4>https://medium.com/@pshrmn/a-simple-react-router</h4>
+            <p>Como aplicar o Material UI em um projeto React</p>
+            <h3>Hey! I have moved this tutorial to my personal blog. Same content, new location. Sorry about making you click through to another page.</h3>
+            <h4>https://medium.com/@pshrmn/a-simple-react-router</h4>
         </InfosPostUrl>
 
         <ImgPostUrl src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
