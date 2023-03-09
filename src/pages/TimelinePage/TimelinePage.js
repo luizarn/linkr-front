@@ -10,7 +10,6 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 export default function TimelinePage() {
     
-
     const { token } = useContext(AuthContext);
     const [url, setUrl] = useState('')
     const [description, setDescription] = useState('')
