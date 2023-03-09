@@ -17,6 +17,7 @@ export default function TimelinePage() {
     const [isPublishing, setIsPublishing] = useState(false);
     const [posts, setPosts] = useState([])
     const [postCounter, setPostCounter] = useState(0);
+    const [arrayTags, setArrayTags] = useState()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
@@ -28,6 +29,7 @@ export default function TimelinePage() {
         promise.then(res => {
           console.log(res.data)
           setPosts(res.data)
+          setArrayTags(res.data.arrayTags)
         })
     
         promise.catch(err => console.log(err.response.data))
@@ -104,7 +106,7 @@ export default function TimelinePage() {
                    </P1>
                    <P2>
                      <TagsDiv>
-                       <TrendingTags/>
+                       <TrendingTags arrayTags={arrayTags}/>
                      </TagsDiv>
                    </P2>
                 </Container>
