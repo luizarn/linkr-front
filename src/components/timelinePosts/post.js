@@ -2,6 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { ReactTagify } from "react-tagify";
 import styled from "styled-components";
+
 export default function Post({name, descriptionPost,title,description,url,image}) {
 
   // const navigate = useNavigate();

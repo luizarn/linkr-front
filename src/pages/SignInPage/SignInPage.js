@@ -15,17 +15,22 @@ export default function SignInPage() {
   });
 
   const navigate = useNavigate();
-  const { setToken } = useContext(AuthContext);
+  const { token, setToken, addToken, setUserId } = useContext(AuthContext);
   console.log(form)
 
   function Login(){
-    const post = axios.post(`${process.env.REACT_APP_API_URL}/sign-in`, form);
+    const post = axios.post(`${API_URL}/sign-in`, form);
+    if(!form.email || !form.password){
+      return alert("Preencha os campos!")
+    }
     post.then((res) => {
-      setToken(res.data.token);
+      addToken(res.data.token);
+      setUserId(res.data.userid)
       console.log(res.data);
-      navigate("/");
+      navigate("/timeline");
     });
-    post.catch((err) => console.log(err.response.data.message));
+    post.catch((err) => alert(err.response.data));
+    
   }
 
   function Form(e) {
