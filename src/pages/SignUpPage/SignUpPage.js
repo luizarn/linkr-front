@@ -1,18 +1,35 @@
 import styled from "styled-components";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LayoutHome from "../LayoutHome/LayoutHome";
 import { useContext, useEffect, useState } from "react";
+
+import { API_URL } from "../../API_URL";
+import { AuthContext } from "../../contexts/AuthContext";
+import axios from "axios";
 
 export default function SignUpPage() {
     const [form, setForm] = useState({
         email: "",
         password: "",
         username: "",
-        pictureUrl: ""
+        pictureurl: ""
       });
-    
+      const navigate = useNavigate();
+
+      function SignUp(){
+        const post = axios.post(`${API_URL}/sign-up`, form);
+        if(!form.email || !form.password || !form.username || !form.pictureurl){
+          return alert("Preencha todos os campos!")
+        }
+        post.then((res) => {
+          alert("Sucesso! Usuário cadastrado");
+          console.log(res.data)
+          navigate("/");
+        });
+        post.catch((err) => console.log(err.response.data.message));
+      }
       function Form(e) {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
@@ -48,7 +65,8 @@ export default function SignUpPage() {
             onChange={Form}
           />
           <Button 
-            text="Log In" 
+            text="Sin Up"
+            onClick={SignUp}
           />
           <Link to="/">
             <h1>Switch back to log in</h1>
@@ -60,7 +78,7 @@ export default function SignUpPage() {
 }
 const Content = styled.div`
   width: 100%;
-  height: auto;
+  height: 100vh;
   display: flex;
   flex-direction: row;
   @media (max-width: 800px) {

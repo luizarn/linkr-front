@@ -17,8 +17,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/hashtag" element={<HashtagPage/>}/>
             <Route path="/timeline" element={<TimelinePage/>}/>
+            <Route path="/hashtag/:hashtag" element={<HashtagPage/>}/>
           </Routes>
         </AuthProvider>
       </Content>
@@ -28,7 +28,7 @@ export default function App() {
 
 const Content = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: #333333;
   display: flex;
   justify-content: center;

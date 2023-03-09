@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,12 +12,11 @@ export const Container = styled.div`
 
 export const Header = styled.div`
     width: 100%;
-    // background: ;
     height: 50px;
     margin-top: 10px;
 `
 
-export const DivLine = styled.div`black
+export const DivLine = styled.div`
     border: 1px solid #484848;
     height: 3px;
     width: 100%;
