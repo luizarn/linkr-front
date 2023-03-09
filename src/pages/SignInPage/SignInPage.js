@@ -15,7 +15,7 @@ export default function SignInPage() {
   });
 
   const navigate = useNavigate();
-  const { token, setToken, addToken } = useContext(AuthContext);
+  const { token, setToken, addToken, setUserId } = useContext(AuthContext);
   console.log(form)
 
   function Login(){
@@ -25,6 +25,7 @@ export default function SignInPage() {
     }
     post.then((res) => {
       addToken(res.data.token);
+      setUserId(res.data.userid)
       console.log(res.data);
       navigate("/timeline");
     });
