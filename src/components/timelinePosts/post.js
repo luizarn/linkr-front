@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { ReactTagify } from "react-tagify";
 import styled from "styled-components";
 
+
 export default function Post({name, descriptionPost,title,description,url,image}) {
 
   // const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Post({name, descriptionPost,title,description,url,image}
             <ImgProfile
             src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
                  <RightPost>
-                     <h1>teste</h1>
+                     <h1>{name}</h1>
                       {/* <ReactTagify
                         tagStyle={tagStyle}
                         mentionStyle={tagStyle}
@@ -41,6 +42,7 @@ export default function Post({name, descriptionPost,title,description,url,image}
                       > */}
                           <h2>{descriptionPost}</h2>
                       {/* </ReactTagify> */}
+        <a href={url} target="_blank" rel="noopener noreferrer" style={{textDecoration: "none", color: "inherit"}}>
               <BoxPostUrl>
         <InfosPostUrl>
             <p>{title}</p>
@@ -50,6 +52,7 @@ export default function Post({name, descriptionPost,title,description,url,image}
 
         <ImgPostUrl src={image}alt="imageUrl"/>
                      </BoxPostUrl>
+                     </a>
                  </RightPost>
                  </BoxPost>
         </>
@@ -78,6 +81,7 @@ border: 1px solid #4D4D4D;
 border-radius: 11px;
 height: 155px;
 display: flex;
+text-decoration: none;
 @media (max-width: 800px) {
     margin-top: 19px;
     height: 115px;
@@ -96,6 +100,7 @@ display: flex;
   width: 100%;
   justify-content: space-between;
   padding: 16px;
+  text-decoration: none;
   p{
     font-weight: 400;
     font-size: 16px;
