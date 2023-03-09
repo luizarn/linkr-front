@@ -1,25 +1,59 @@
+import { useNavigate } from "react-router";
+import { ReactTagify } from "react-tagify";
 import styled from "styled-components";
 export default function Post() {
-  return (
-<>
-<BoxPost>
-    <ImgProfile
-    src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
-         <RightPost>
-             <h1>Name</h1>
-             <h2>Muito maneiro esse tutorial de Material UI com React, deem uma olhada!</h2>
-             <BoxPostUrl>
-<InfosPostUrl>
-<p>Como aplicar o Material UI em um projeto React</p>
-<h3>Hey! I have moved this tutorial to my personal blog. Same content, new location. Sorry about making you click through to another page.</h3>
-<h4>https://medium.com/@pshrmn/a-simple-react-router</h4>
-</InfosPostUrl>
 
-<ImgPostUrl src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
-             </BoxPostUrl>
-         </RightPost>
-         </BoxPost>
-         </>
+  const navigate = useNavigate();
+
+  const tagStyle = {
+      fontWeight: 700,
+      cursor: 'pointer'
+  }
+
+  async function handleTagClick(tag) {
+      if(tag.type === 'hashtag'){
+        navigate(`/hashtag/${tag.value}`);
+      } else if(tag.type === 'user') {
+        const id = await getUserId(tag.value); // esse tag.value é o nome do usuário pra poder usar na pesquisa
+        navigate(`/user/${id}`)
+      }
+  }
+
+  async function getUserId(username){
+      const user = axios.get('endpoint da query')
+      query no banco de dados {
+       const user = await db.query(`SELECT id FROM users where username= req.body`)
+      }
+      return user.data.id
+
+  }
+
+  return (
+        <>
+        <BoxPost>
+            <ImgProfile
+            src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
+                 <RightPost>
+                     <h1>Name</h1>
+                      <ReactTagify
+                        tagStyle={tagStyle}
+                        mentionStyle={tagStyle}
+                        tagClicked={handleTagClick()}
+                      >
+                          <h2>Muito maneiro esse tutorial de Material UI com React, deem uma olhada!</h2>
+                      </ReactTagify>
+              <BoxPostUrl>
+        <InfosPostUrl>
+        <p>Como aplicar o Material UI em um projeto React</p>
+        <h3>Hey! I have moved this tutorial to my personal blog. Same content, new location. Sorry about making you click through to another page.</h3>
+        <h4>https://medium.com/@pshrmn/a-simple-react-router</h4>
+        </InfosPostUrl>
+
+        <ImgPostUrl src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
+                     </BoxPostUrl>
+                 </RightPost>
+                 </BoxPost>
+        </>
   )
 }
 
