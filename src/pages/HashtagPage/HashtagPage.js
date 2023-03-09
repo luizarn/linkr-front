@@ -7,21 +7,6 @@ import axios from "axios";
 import { useEffect } from "react";
 
 
-<<<<<<< HEAD
-export default function TimelinePage() {
-    
-    const { hashtag } = useParams();
-    // const [cards,setCards] = useState();
-
-    // useEffect(() => {
-    //     const data = async () => {
-    //         const result = await axios.get('endpoint onde estão os cards');
-    //         setCards(result.data);
-    //     }
-
-    //     data();
-    // }, []);
-=======
 export default function hashtagPage() {
   
   const { hashtag } = useParams();
@@ -43,7 +28,6 @@ export default function hashtagPage() {
       promise.catch(err => console.log(err.response.data))
   
     }, []);
->>>>>>> main
 
     return (
         <>
@@ -53,14 +37,6 @@ export default function hashtagPage() {
                   <P1>
                   <Title># {hashtag}</Title>
 
-<<<<<<< HEAD
-                <div>
-                {/* {cards.map((c) => ( */}
-                    <Post/>
-                    <Post/>
-
-                {/* ))} */}
-=======
                   <div>
                 {posts.map((p) => (
                     <Post
@@ -73,16 +49,11 @@ export default function hashtagPage() {
                     />
                 ))}
                 
->>>>>>> main
                 </div>
                    </P1>
                    <P2>
                      <TagsDiv>
-<<<<<<< HEAD
-                       <TrendingTags/>
-=======
                        <TrendingTags arrayTags={arrayTags}/>
->>>>>>> main
                      </TagsDiv>
                    </P2>
                 </Container>
