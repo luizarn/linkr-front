@@ -25,7 +25,7 @@ export default function SignInPage() {
       console.log(res.data);
       navigate("/");
     });
-    post.catch((err) => console.log(err.response.data.message));
+    post.catch((err) => console.log(err.response));
   }
 
   function Form(e) {

@@ -19,9 +19,10 @@ export default function SignUpPage() {
       const navigate = useNavigate();
 
       function SignUp(){
-        const post = axios.post(`${API_URL}/sign-up`, form);
+        const post = axios.post(`${API_URL}sign-up`, form);
         post.then((res) => {
           alert("Sucesso! Usuário cadastrado");
+          console.log(res.data)
           navigate("/");
         });
         post.catch((err) => console.log(err.response.data.message));
