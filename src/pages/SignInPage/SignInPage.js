@@ -13,24 +13,25 @@ export default function SignInPage() {
     email: "",
     password: "",
   });
+  const [disabledButton, setDisabledButton] = useState(false)
 
   const navigate = useNavigate();
   const { token, setToken, addToken, setUserId } = useContext(AuthContext);
-  console.log(form)
 
   function Login(){
+    setDisabledButton(true)
     const post = axios.post(`${API_URL}/sign-in`, form);
     if(!form.email || !form.password){
-      return alert("Preencha os campos!")
+      return alert("Please fill the field correctly!")
     }
     post.then((res) => {
       addToken(res.data.token);
-      setUserId(res.data.userid)
+      setUserId(res.data.userData)
       console.log(res.data);
       navigate("/timeline");
     });
     post.catch((err) => alert(err.response.data));
-    
+    setDisabledButton(false)
   }
 
   function Form(e) {
@@ -54,7 +55,11 @@ export default function SignInPage() {
             type="password"
             onChange={Form}
           />
-          <Button text="Log In" onClick={Login}/>
+          <Button 
+          text="Log In" 
+          onClick={Login} 
+          disabled={disabledButton}
+          />
           <Link to="/sign-up" >
             <h1>First time? Create an account</h1>
           </Link>
