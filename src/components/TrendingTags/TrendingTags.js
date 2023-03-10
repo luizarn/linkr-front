@@ -1,9 +1,7 @@
 import { Container,Header,TextH1,TextH2,Body,Content,DivLine } from "./style"
 import { Link } from "react-router-dom"
 
-export default function TrendingTags({arrayTags}){
-    
-    arrayTags = ['react','javascript','python']
+export default function TrendingTags({tags}){
 
     return(
         <>
@@ -17,11 +15,11 @@ export default function TrendingTags({arrayTags}){
                 <Body>
                     <Content>
                         <ul>
-                            {arrayTags.map((hashtag) => (
-                                <li key={hashtag} >
-                                    <Link to={`/hashtag/${hashtag}`} style={{textDecoration:'none'}}>
+                            {tags.map((hashtag) => (
+                                <li key={hashtag.name} >
+                                    <Link to={`/hashtag/${hashtag.name}`} style={{textDecoration:'none'}}>
                                         <TextH2>
-                                            # {hashtag}
+                                            # {hashtag.name}
                                         </TextH2>
                                     </Link>
                                 </li>

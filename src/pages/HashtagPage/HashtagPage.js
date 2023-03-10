@@ -13,12 +13,12 @@ export default function HashtagPage() {
   const { token } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [arrayTags, setArrayTags] = useState();
+  const [tags, setTags] = useState([]);
 
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    const promise = axios.get(`http://localhost:5000/hashtag/${hashtag}`, {
+    const promise = axios.get(`https://linkr-bzdl.onrender.com/hashtag/${hashtag}`, {
       headers:
         { Authorization: `Bearer ${token}` }
     })
@@ -38,7 +38,7 @@ export default function HashtagPage() {
   }, []);
 
   useEffect(() => {
-    const promise = axios.get(`http://localhost:5000/trending`, {
+    const promise = axios.get(`https://linkr-bzdl.onrender.com/trending`, {
       headers:
         { Authorization: `Bearer ${token}` }
     })
@@ -46,7 +46,8 @@ export default function HashtagPage() {
     setIsLoading(true)
 
     promise.then(res => {
-      setArrayTags(res.data)
+      console.log(res.data)
+      setTags(res.data)
       setIsLoading(false)
     })
 
@@ -93,7 +94,7 @@ export default function HashtagPage() {
                   </P1>
                   <P2>
                     <TagsDiv>
-                      <TrendingTags arrayTags={arrayTags}/>
+                      <TrendingTags tags={tags}/>
                     </TagsDiv>
                   </P2>
                 </Container>
@@ -106,7 +107,7 @@ export default function HashtagPage() {
 }
 const Content = styled.div`
   width: 100%;
-  height: auto;
+  height: 100vh;
   display: flex;
   flex-direction: row;
   @media (max-width: 800px) {
@@ -132,7 +133,6 @@ margin-top: 130px;
     width: 100%;
   height: auto;
   display: flex;
-  flex-direction: row;
   gap: 20px;
   justify-content: center;
   @media (max-width: 800px) {
@@ -147,11 +147,17 @@ const TagsDiv = styled.div`
 `
 
 const P1 = styled.div`
-   
+  width: 611px;
+  @media (max-width:800px){
+    width: 100%;
+  }
 `
 
 const P2 = styled.div`
-
+  width: 301px;
+  @media (max-width:800px){
+    display: none;
+  }
 `
 
 const BoxPost = styled.div`

@@ -45,7 +45,7 @@ export const TextH2 = styled.h2`
     font-weight: 700;
     font-size: 19px;
     color: #ffffff;
-    line-height: 32px;
+    line-height: 27px;
     padding-top: 5px;
     padding-left: 15px;
 `

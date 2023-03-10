@@ -17,6 +17,7 @@ export default function TimelinePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([])
   const [postCounter, setPostCounter] = useState(0);
+  const [tags, setTags] = useState([])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -74,6 +75,26 @@ export default function TimelinePage() {
 
   }
 
+  useEffect(() => {
+    const promise = axios.get(`https://linkr-bzdl.onrender.com/trending`, {
+      headers:
+        { Authorization: `Bearer ${token}` }
+    })
+
+    setIsLoading(true)
+
+    promise.then(res => {
+      setTags(res.data)
+      setIsLoading(false)
+    })
+
+    promise.catch(err => {
+      alert("An error occured while trying to fetch the posts, please refresh the page")
+      console.log(err.response.data)
+    })
+
+  }, []);
+
   return (
     <>
       <Content>
@@ -124,7 +145,7 @@ export default function TimelinePage() {
           </P1>
           <P2>
             <TagsDiv>
-              <TrendingTags />
+              <TrendingTags tags={tags}/>
             </TagsDiv>
           </P2>
         </Container>
@@ -270,13 +291,15 @@ const TagsDiv = styled.div`
 `
 
 const P1 = styled.div`
-   
+width: 611px;
+@media (max-width:800px){
+  width: 100%;
+}
+
 `
 
 const P2 = styled.div`
-@media (max-width: 800px) {
-  visibility: none;
-  }
+  width: 301px;
 `
 
 const BoxPost = styled.div`
