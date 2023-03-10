@@ -8,73 +8,68 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 
 export default function TimelinePage() {
-    
-    const { token } = useContext(AuthContext);
-    const [url, setUrl] = useState('')
-    const [description, setDescription] = useState('')
-    const [isPublishing, setIsPublishing] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [posts, setPosts] = useState([])
-    const [postCounter, setPostCounter] = useState(0);
-    const [arrayTags, setArrayTags] = useState()
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => {
-        const promise = axios.get(`${process.env.REACT_APP_API_URL}/home`, {
-          headers:
-            { Authorization: `Bearer ${token}` }
-        })
+  const { token } = useContext(AuthContext);
+  const [url, setUrl] = useState("")
+  const [description, setDescription] = useState("")
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [posts, setPosts] = useState([])
+  const [postCounter, setPostCounter] = useState(0);
 
-        promise.then(res => {
-          console.log(res.data)
-          setPosts(res.data)
-        })
-    
-        promise.catch(err => console.log(err.response.data))
-    
-      }, [postCounter]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const promise = axios.get(`http://localhost:5000/home`, {
+      headers:
+        { Authorization: `Bearer ${token}` }
+    })
 
-      useEffect(() => {
-        const promise = axios.get(`${process.env.REACT_APP_API_URL}/trending`, {
-          headers:
-          {Authorization: `Bearer ${token}`}
-        })
+    console.log(process.env.REACT_APP_API_URL)
 
-        promise.then(res => {
-          setArrayTags(res.data)
-        })
+    setIsLoading(true)
 
-        promise.catch(err => console.log(err.response.data))
+    promise.then(res => {
+      console.log(res.data)
+      setPosts(res.data)
+      setIsLoading(false)
+    })
 
-      })
-  
-    function addPost(e) {
-        e.preventDefault()
-        setIsPublishing(true);
+    promise.catch(err => {
+      alert("An error occured while trying to fetch the posts, please refresh the page")
+      console.log(err.response.data)
+    })
 
-        const body = {url, description }
-
-        const promise = axios.post(`${process.env.REACT_APP_API_URL}/home`, body, {
-          headers:
-            { Authorization: `Bearer ${token}`}
-        })
-
-    
-        promise.then(res => {
-          console.log(res.data)
-          console.log(res.data.token)
-          setUrl("")
-          setIsPublishing(false)
-          console.log(posts)
-          setPostCounter(postCounter + 1)
-        });
+  }, [postCounter]);
 
 
-        promise.catch(err => {
-          console.log(err.response.data.message)
-          alert("There was an error publishing your link")
-          setIsPublishing(false)
-        })
+
+  function addPost(e) {
+    e.preventDefault()
+    setIsPublishing(true);
+
+    const body = { url, descriptionPost: description }
+
+    const promise = axios.post(`${process.env.REACT_APP_API_URL}/home`, body, {
+      headers:
+        { Authorization: `Bearer ${token}` }
+    })
+
+
+    promise.then(res => {
+      console.log(res.data)
+      console.log(res.data.token)
+      setIsPublishing(false)
+      setPostCounter(postCounter + 1)
+      setUrl("")
+      setDescription("")
+    });
+
+
+    promise.catch(err => {
+      console.log(err)
+      alert("There was an error publishing your link")
+      setIsPublishing(false)
+    })
   }
 
   return (

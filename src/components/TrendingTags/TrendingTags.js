@@ -16,7 +16,7 @@ export default function TrendingTags({arrayTags}){
                 <DivLine/>
                 <Body>
                     <Content>
-                        <ul>
+                        {/* <ul>
                             {arrayTags.map((hashtag) => (
                                 <li key={hashtag} >
                                     <Link to={`/hashtag/${hashtag}`} style={{textDecoration:'none'}}>
@@ -26,7 +26,7 @@ export default function TrendingTags({arrayTags}){
                                     </Link>
                                 </li>
                             ))}
-                        </ul>
+                        </ul> */}
                     </Content>
                 </Body>
             </Container>
