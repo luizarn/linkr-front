@@ -2,6 +2,8 @@ import { Container,Header,TextH1,TextH2,Body,Content,DivLine } from "./style"
 import { Link } from "react-router-dom"
 
 export default function TrendingTags({arrayTags}){
+    
+    arrayTags = ['react','javascript','python']
 
     return(
         <>

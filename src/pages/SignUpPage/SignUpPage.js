@@ -4,7 +4,6 @@ import Button from "../../components/button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import LayoutHome from "../LayoutHome/LayoutHome";
 import { useContext, useEffect, useState } from "react";
-
 import { API_URL } from "../../API_URL";
 import { AuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
@@ -14,21 +13,24 @@ export default function SignUpPage() {
         email: "",
         password: "",
         username: "",
-        pictureurl: ""
+        picture_url: ""
       });
       const navigate = useNavigate();
+      const [disabledButton, setDisabledButton] = useState(false)
 
       function SignUp(){
+        setDisabledButton(true)
         const post = axios.post(`${API_URL}/sign-up`, form);
-        if(!form.email || !form.password || !form.username || !form.pictureurl){
-          return alert("Preencha todos os campos!")
+        if(!form.email || !form.password || !form.username || !form.picture_url){
+          return alert("Please fill the field correctly!")
         }
         post.then((res) => {
-          alert("Sucesso! Usuário cadastrado");
+          alert("Success! registered user");
           console.log(res.data)
           navigate("/");
         });
-        post.catch((err) => console.log(err.response.data.message));
+        post.catch((err) => alert(err.response.data.errors));
+        setDisabledButton(false)
       }
       function Form(e) {
         const { name, value } = e.target;
@@ -60,13 +62,14 @@ export default function SignUpPage() {
           />
           <Input 
             placeholder="picture url"
-            name="pictureUrl"
+            name="picture_url"
             type="url"
             onChange={Form}
           />
           <Button 
             text="Sign Up"
             onClick={SignUp}
+            disabled={disabledButton}
           />
           <Link to="/">
             <h1>Switch back to log in</h1>
