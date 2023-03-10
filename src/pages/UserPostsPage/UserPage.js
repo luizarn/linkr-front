@@ -25,7 +25,7 @@ export default function TimelinePage() {
             setUser({ ...response.data })
           })
           .catch((error) => {
-            alert(error.message);
+            console.log(error.response.data);
           })
       }
 
@@ -67,7 +67,7 @@ export default function TimelinePage() {
           </P1>
           <P2>
             <TagsDiv>
-              {/* <TrendingTags /> */}
+              <TrendingTags />
             </TagsDiv>
           </P2>
         </Container>
