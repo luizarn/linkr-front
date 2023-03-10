@@ -130,6 +130,7 @@ export default function TimelinePage() {
 
                     posts.map((p) => (
                       <Post
+                        likes={p.postLike.likes}
                         name={p.user}
                         descriptionPost={p.descriptionPost}
                         title={p.urlPost.title}

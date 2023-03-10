@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { API_URL } from "../../API_URL";
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function Header() {
   const [logoutIcon, setLogoutIcon] = useState(false)
@@ -36,6 +37,7 @@ export default function Header() {
         <div>
           <h1>linkr</h1>
         </div>
+        <SearchBar/>
         <div onClick={LogoutToggle}>
         {logoutIcon ? <IoIosArrowUp /> : <IoIosArrowDown />}
           <img src={userId.picture_url} onClick={LogoutToggle}/>

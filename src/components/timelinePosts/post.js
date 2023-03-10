@@ -2,9 +2,11 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { ReactTagify } from "react-tagify";
 import styled from "styled-components";
+import {HiOutlineHeart, HiHeart} from "react-icons/hi";
+import { useState } from "react";
 
 
-export default function Post({name, descriptionPost,title,description,url,image}) {
+export default function Post({name, likes, descriptionPost,title,description,url,image}) {
 
   // const navigate = useNavigate();
 
@@ -28,11 +30,19 @@ export default function Post({name, descriptionPost,title,description,url,image}
 
   // }
 
+  const [liked, setLiked] = useState(false);
+
+  function handleLike() {
+    setLiked(!liked);
+  }
+
   return (
         <>
         <BoxPost>
             <ImgProfile
             src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
+          {liked ? <HiHeart color="red" onClick={handleLike} className="heart-icon"/> : <HiOutlineHeart color="white" onClick={handleLike} className="heart-icon"/>}
+         <LikeCount>{liked ? likes + 1 : likes - 1} likes</LikeCount>
                  <RightPost>
                      <h1>{name}</h1>
                       {/* <ReactTagify
@@ -68,6 +78,16 @@ margin-top: 43px;
 margin-bottom: 16px;
 padding: 21px;
 display: flex;
+position: relative;
+
+.heart-icon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 90px;
+  left: 30px;
+}
+
 @media (max-width: 800px) {
     border-radius: 0px;
     margin-top: 19px;
@@ -165,4 +185,17 @@ h2{
     font-size:15px;
 }
   }
+`;
+
+const LikeCount = styled.span`
+  position: absolute;
+  top: 120px;
+  left: 25px;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: #FFFFFF;
 `;
