@@ -42,7 +42,7 @@ export default function Post({name, likes, descriptionPost,title,description,url
             <ImgProfile
             src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
           {liked ? <HiHeart color="red" onClick={handleLike} className="heart-icon"/> : <HiOutlineHeart color="white" onClick={handleLike} className="heart-icon"/>}
-         <LikeCount>{liked ? likes + 1 : likes - 1} likes</LikeCount>
+         <LikeCount>{liked ? likes + 2 : likes - 2} likes</LikeCount>
                  <RightPost>
                      <h1>{name}</h1>
                       {/* <ReactTagify
