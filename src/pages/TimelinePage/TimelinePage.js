@@ -1,62 +1,71 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { API_URL } from "../../API_URL";
 import Header from "../../components/header/Header";
 import Post from "../../components/timelinePosts/post";
 import TrendingTags from "../../components/TrendingTags/TrendingTags";
+import { AuthContext } from "../../contexts/AuthContext";
 
 
 export default function TimelinePage() {
     
-    // const { token } = useContext(tokenContext)
+    const { token } = useContext(AuthContext);
     const [url, setUrl] = useState('')
     const [description, setDescription] = useState('')
     const [isPublishing, setIsPublishing] = useState(false);
     const [posts, setPosts] = useState([])
+    const [postCounter, setPostCounter] = useState(0);
+    const [arrayTags, setArrayTags] = useState()
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        const promise = axios.get(`${process.env.REACT_APP_API_URL}/home`, {
+          headers:
+            { Authorization: `Bearer ${token}` }
+        })
 
-    // useEffect(() => {
-    //     const promise = axios.get(`${process.env.REACT_APP_API_URL}/home`, {
-    //       headers:
-    //         { Authorization: `Bearer ${token}`, user }
-    //     })
-    //     promise.then(res => {
-    //       console.log(res.data)
-    //       setPosts(res.data)
-    //     })
+        promise.then(res => {
+          console.log(res.data)
+          setPosts(res.data)
+          setArrayTags(res.data.arrayTags)
+        })
     
-    //     promise.catch(err => console.log(err.response.data))
+        promise.catch(err => console.log(err.response.data))
     
-    //   }, [ addPost()]);
+      }, [postCounter]);
   
     
 
     function addPost(e) {
         e.preventDefault()
-        // setIsPublishing(true);
+        setIsPublishing(true);
 
-        // const body = {url, description }
+        const body = {url, description }
 
-        // const promise = axios.post(`${process.env.REACT_APP_API_URL}/new-entrance`, body, {
-        // //   headers:
-        // //     { Authorization: `Bearer ${token}`, user }
-        // })
+        const promise = axios.post(`${process.env.REACT_APP_API_URL}/home`, body, {
+          headers:
+            { Authorization: `Bearer ${token}`}
+        })
 
     
-        // promise.then(res => {
-        //   console.log(res.data)
-        //   console.log(res.data.token)
-        //   setUrl("")
-        //   setIsPublishing(false)
-        //   console.log(posts)
-        // })
-        // promise.catch(err => {
-        //   console.log(err.response.data.message)
-        //   alert("There was an error publishing your link")
-        //   setIsPublishing(false)
-        // })
+        promise.then(res => {
+          console.log(res.data)
+          console.log(res.data.token)
+          setUrl("")
+          setIsPublishing(false)
+          console.log(posts)
+          setPostCounter(postCounter + 1)
+        });
+
+
+        promise.catch(err => {
+          console.log(err.response.data.message)
+          alert("There was an error publishing your link")
+          setIsPublishing(false)
+        })
 
     }
-
 
     return (
         <>
@@ -81,19 +90,22 @@ export default function TimelinePage() {
                 </BoxAddPost>
 
                 <div>
-                {/* {posts.map((p) => (
+                {posts.map((p) => (
                     <Post
-                    url = {p.url}
-                    description = {p.description}
+                    name= {p.user}
+                    descriptionPost = {p.descriptionPost}
+                    title= {p.urlPost.title}
+                    description = {p.urlPost.description}
+                    url = {p.urlPost.url}
+                    image= {p.urlPost.image}
                     />
-                ))} */}
-                <Post />
-                <Post />
+                ))}
+                
                 </div>
                    </P1>
                    <P2>
                      <TagsDiv>
-                       <TrendingTags/>
+                       <TrendingTags arrayTags={arrayTags}/>
                      </TagsDiv>
                    </P2>
                 </Container>

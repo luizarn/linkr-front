@@ -16,7 +16,7 @@ export const Header = styled.div`
     margin-top: 10px;
 `
 
-export const DivLine = styled.div`black
+export const DivLine = styled.div`
     border: 1px solid #484848;
     height: 3px;
     width: 100%;
