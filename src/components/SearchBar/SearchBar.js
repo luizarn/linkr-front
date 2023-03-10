@@ -1,12 +1,14 @@
 import { DebounceInput } from "react-debounce-input";
 import { HiSearch } from "react-icons/hi";
 import { SearchContainer, HiddenBox, HiddenUsers } from "./style";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function SearchBar() {
 
+    const { token } = useContext(AuthContext);
     const [value, setValue] = useState();
     const [open, setOpen] = useState(false);
     const [users, setUsers] = useState([]);
@@ -26,7 +28,10 @@ export default function SearchBar() {
 
     async function searchUsers() {
         if (debouncedValue.length >= 3) {
-            const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user?username=${debouncedValue}`);
+            const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user?username=${debouncedValue}`, {
+                headers:
+                  { Authorization: `Bearer ${token}` }
+              });
             setUsers(data);
         } else {
             setUsers([]);
@@ -36,7 +41,7 @@ export default function SearchBar() {
     function handleInputFocus() {
         setOpen(true);
     }
-
+    
     return (
         <SearchContainer>
             <DebounceInput
@@ -56,9 +61,13 @@ export default function SearchBar() {
             />
 
             <HiddenBox open={open}>
-                {users.map(({ id, pictureurl, username }) => (
-                    <HiddenUsers key={id} onClick={() => navigate(`/users/${id}`)} cursor="pointer">
-                        <img src={pictureurl} alt="user profile pic" />
+                {users.map(({ id, picture_url, username }) => (
+                    <HiddenUsers key={id} onClick={() => {
+                        navigate(`timeline/user/${id}`) 
+                        setOpen(false)
+                        }} 
+                        cursor="pointer">
+                        <img src={picture_url} alt="user profile pic" />
                         <h2>{username}</h2>
                     </HiddenUsers>
                 ))}

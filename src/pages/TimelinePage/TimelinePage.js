@@ -118,10 +118,10 @@ export default function TimelinePage() {
             </BoxAddPost>
 
             <div>
-              {isLoading ? (
+              {/* {isLoading ? (
                 <BoxPost>Loading...</BoxPost>
-              ) : (
-                <>
+              ) : */}
+                 <>
                   {posts.length === 0 ? (
 
                     <BoxPost>There are no posts yet</BoxPost>
@@ -140,12 +140,13 @@ export default function TimelinePage() {
                     ))
                   )}
                 </>
-              )}
             </div>
           </P1>
           <P2>
             <TagsDiv>
+
               <TrendingTags tags={tags}/>
+
             </TagsDiv>
           </P2>
         </Container>
