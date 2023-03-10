@@ -13,6 +13,7 @@ export default function TimelinePage() {
     const [url, setUrl] = useState('')
     const [description, setDescription] = useState('')
     const [isPublishing, setIsPublishing] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [posts, setPosts] = useState([])
     const [postCounter, setPostCounter] = useState(0);
     const [arrayTags, setArrayTags] = useState()
@@ -27,15 +28,26 @@ export default function TimelinePage() {
         promise.then(res => {
           console.log(res.data)
           setPosts(res.data)
-          setArrayTags(res.data.arrayTags)
         })
     
         promise.catch(err => console.log(err.response.data))
     
       }, [postCounter]);
-  
-    
 
+      useEffect(() => {
+        const promise = axios.get(`${process.env.REACT_APP_API_URL}/trending`, {
+          headers:
+          {Authorization: `Bearer ${token}`}
+        })
+
+        promise.then(res => {
+          setArrayTags(res.data)
+        })
+
+        promise.catch(err => console.log(err.response.data))
+
+      })
+  
     function addPost(e) {
         e.preventDefault()
         setIsPublishing(true);
@@ -115,7 +127,7 @@ export default function TimelinePage() {
           </P1>
           <P2>
             <TagsDiv>
-              <TrendingTags />
+              <TrendingTags arrayTags={arrayTags}/>
             </TagsDiv>
           </P2>
         </Container>

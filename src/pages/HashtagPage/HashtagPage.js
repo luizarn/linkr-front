@@ -11,6 +11,7 @@ export default function HashtagPage() {
   
   const { hashtag } = useParams();
   const { token } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [arrayTags, setArrayTags] = useState();
     
@@ -20,14 +21,30 @@ export default function HashtagPage() {
           { Authorization: `Bearer ${token}` }
       })
 
+      setIsLoading(true)
+
       promise.then(res => {
         setPosts(res.data)
-        setArrayTags(res.data.arrayTags)
+        setIsLoading(false)
       })
   
       promise.catch(err => console.log(err.response.data))
   
     }, []);
+
+    useEffect(() => {
+      const promise = axios.get(`${process.env.REACT_APP_API_URL}/trending`, {
+        headers:
+        {Authorization: `Bearer ${token}`}
+      })
+
+      promise.then(res => {
+        setArrayTags(res.data)
+      })
+
+      promise.catch(err => console.log(err.response.data))
+
+    })
 
     return (
         <>
@@ -38,18 +55,30 @@ export default function HashtagPage() {
                   <Title># {hashtag}</Title>
 
                   <div>
-                {posts.map((p) => (
-                    <Post
-                    name= {p.user}
-                    descriptionPost = {p.descriptionPost}
-                    title= {p.urlPost.title}
-                    description = {p.urlPost.description}
-                    url = {p.urlPost.url}
-                    image= {p.urlPost.image}
-                    />
-                ))}
-                
-                </div>
+              {isLoading ? (
+                <BoxPost>Loading...</BoxPost>
+              ) : (
+                <>
+                  {posts.length === 0 ? (
+
+                    <BoxPost>There are no posts yet</BoxPost>
+
+                  ) : (
+
+                    posts.map((p) => (
+                      <Post
+                        name={p.user}
+                        descriptionPost={p.descriptionPost}
+                        title={p.urlPost.title}
+                        description={p.urlPost.description}
+                        url={p.urlPost.url}
+                        image={p.urlPost.image}
+                      />
+                    ))
+                  )}
+                </>
+              )}
+            </div>
                    </P1>
                    <P2>
                      <TagsDiv>
@@ -116,3 +145,18 @@ const P2 = styled.div`
   }
 `
 
+const BoxPost = styled.div`
+background: #171717;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 16px;
+height: 276px;
+margin-top: 43px;
+margin-bottom: 16px;
+padding: 21px;
+display: flex;
+@media (max-width: 800px) {
+    border-radius: 0px;
+    margin-top: 19px;
+    height: 234px;
+  }
+`

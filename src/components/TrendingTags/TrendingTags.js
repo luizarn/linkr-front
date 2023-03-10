@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 
 export default function TrendingTags({arrayTags}){
 
+    arrayTags = ['react','javascript','python']
+
     return(
         <>
             <Container>
