@@ -7,6 +7,7 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage.js";
 import AuthProvider from "./contexts/AuthContext.js";
 import HashtagPage from "./pages/HashtagPage/HashtagPage.js";
 import TimelinePage from "./pages/TimelinePage/TimelinePage.js";
+import UserPage from "./pages/UserPostsPage/UserPage.js";
 
 export default function App() {
   return (
@@ -17,10 +18,11 @@ export default function App() {
           <Routes>
             <Route path="/" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/timeline" element={<TimelinePage/>}/>
+            <Route path="/timeline" element={<TimelinePage/>}/> 
+            <Route path="/timeline/user/:id" element={<UserPage />} />
             <Route path="/hashtag/:hashtag" element={<HashtagPage/>}/>
           </Routes>
-        </AuthProvider>
+          </AuthProvider>
       </Content>
     </BrowserRouter>
   );
