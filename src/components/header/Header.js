@@ -1,17 +1,47 @@
 import styled from "styled-components";
-import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { API_URL } from "../../API_URL";
+
 export default function Header() {
+  const [logoutIcon, setLogoutIcon] = useState(false)
+  const [logoutDiv, setLogoutDiv] = useState(false)
+  const navigate = useNavigate();
+  const { userId, token } = useContext(AuthContext);
+  function LogoutToggle(){
+    setLogoutDiv(!logoutDiv)
+    setLogoutIcon(!logoutIcon)
+  }
+  
+  function LogoutUser(){
+    
+    const del = axios.delete(`${API_URL}/delete`, {
+      headers: {
+        'Authorization': `Basic ${token}` 
+      }
+    }); 
+    del.then((res) => {
+      localStorage.removeItem("userToken")
+      navigate("/");
+    });
+    del.catch((err) => console.log(err.response.data));
+  }
+
   return (
     <>
       <HeaderBox>
         <div>
           <h1>linkr</h1>
         </div>
-        <div>
-        <IoIosArrowUp />
-          <img src="https://s2.glbimg.com/DVfIiTGl-KnJU41UcD9Yoj33MZM=/e.glbimg.com/og/ed/f/original/2021/06/16/doge.jpg" />
+        <div onClick={LogoutToggle}>
+        {logoutIcon ? <IoIosArrowUp /> : <IoIosArrowDown />}
+          <img src={userId.picture_url} onClick={LogoutToggle}/>
         </div>
       </HeaderBox>
+      {logoutDiv ? <Logout onClick={LogoutUser}><p>Logout</p></Logout>: <> </>}
     </>
   );
 }
@@ -37,6 +67,11 @@ const HeaderBox = styled.div`
     height: 50px;
     border-radius: 50%;
     margin-right: 9px;
+    cursor: pointer;
+  }
+  svg {
+    color: white;
+    font-size: 28px;
   }
   @media (max-width: 800px) {
    h1{
@@ -45,3 +80,25 @@ const HeaderBox = styled.div`
    } 
   }
   `
+const Logout = styled.div`
+  width: 100px;
+  height: 43px;
+  background-color: #151515;
+  border-radius: 0px 0px 20px 20px;
+  margin-top: 75px;
+  position: absolute;
+  top: 0;
+  right: 1px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  p{
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+  }
+`

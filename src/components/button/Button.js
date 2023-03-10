@@ -1,7 +1,7 @@
 import styled from "styled-components";
-export default function Button({text, onClick}) {
+export default function Button({text, onClick, disabled}) {
     return(<>
-    <ButtonExemple onClick={onClick}>
+    <ButtonExemple onClick={onClick} disabled={disabled}>
         {text}
     </ButtonExemple>
     </>)

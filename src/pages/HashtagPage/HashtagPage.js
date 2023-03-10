@@ -14,12 +14,14 @@ export default function HashtagPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [arrayTags, setArrayTags] = useState();
+
     
-    useEffect(() => {
-      const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag/${hashtag}`, {
-        headers:
-          { Authorization: `Bearer ${token}` }
-      })
+    // useEffect(() => {
+    //   const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag/${hashtag}`, {
+    //     headers:
+    //       { Authorization: `Bearer ${token}` }
+    //   })
+
 
       setIsLoading(true)
 
@@ -27,10 +29,10 @@ export default function HashtagPage() {
         setPosts(res.data)
         setIsLoading(false)
       })
+
+    //   promise.catch(err => console.log(err.response.data))
   
-      promise.catch(err => console.log(err.response.data))
-  
-    }, []);
+    // }, []);
 
     useEffect(() => {
       const promise = axios.get(`${process.env.REACT_APP_API_URL}/trending`, {
@@ -52,9 +54,10 @@ export default function HashtagPage() {
                 <Header/>
                 <Container>
                   <P1>
-                  <Title># {hashtag}</Title>
+                  {/* <Title># {hashtag}</Title> */}
 
                   <div>
+
               {isLoading ? (
                 <BoxPost>Loading...</BoxPost>
               ) : (
@@ -79,10 +82,11 @@ export default function HashtagPage() {
                 </>
               )}
             </div>
+
                    </P1>
                    <P2>
                      <TagsDiv>
-                       <TrendingTags arrayTags={arrayTags}/>
+                       {/* <TrendingTags arrayTags={arrayTags}/> */}
                      </TagsDiv>
                    </P2>
                 </Container>
