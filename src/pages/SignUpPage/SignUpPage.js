@@ -65,7 +65,7 @@ export default function SignUpPage() {
             onChange={Form}
           />
           <Button 
-            text="Sin Up"
+            text="Sign Up"
             onClick={SignUp}
           />
           <Link to="/">
