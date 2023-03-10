@@ -43,7 +43,7 @@ export default function TimelinePage() {
         })
         promise.catch(err => console.log(err.response.data))
       }, [postCounter]);
-  
+      
   return (
     <>
       <Content>
@@ -55,6 +55,7 @@ export default function TimelinePage() {
             <div>
               {posts.map((p) => (
                       <Post
+                        likes={p.postLike.likes}
                         name={p.user}
                         descriptionPost={p.descriptionPost}
                         title={p.urlPost.title}

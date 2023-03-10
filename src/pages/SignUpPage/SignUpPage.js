@@ -46,25 +46,28 @@ export default function SignUpPage() {
             name="email"
             type="text"
             onChange={Form}
+            required={true}
           />
           <Input 
             placeholder="password"
             name="password"
             type="password"
             onChange={Form}
-            required="true"
+            required={true}
           />
           <Input 
             placeholder="username"
             name="username"
             type="text"
             onChange={Form}
+            required={true}
           />
           <Input 
             placeholder="picture url"
             name="picture_url"
             type="url"
             onChange={Form}
+            required={true}
           />
           <Button 
             text="Sign Up"
