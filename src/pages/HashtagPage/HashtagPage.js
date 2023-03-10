@@ -4,15 +4,16 @@ import Header from "../../components/header/Header";
 import Post from "../../components/timelinePosts/post";
 import TrendingTags from "../../components/TrendingTags/TrendingTags";
 import axios from "axios";
-import { useEffect } from "react";
+import { useState,useContext,useEffect } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
-
-export default function hashtagPage() {
+export default function HashtagPage() {
   
-  // const { hashtag } = useParams();
+  const { hashtag } = useParams();
+  const { token } = useContext(AuthContext);
+  const [posts, setPosts] = useState([]);
+  const [arrayTags, setArrayTags] = useState();
 
-  // const [posts, setPosts] = useState([]);
-  // const [arrayTags, setArrayTags] = useState();
     
     // useEffect(() => {
     //   const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag/${hashtag}`, {

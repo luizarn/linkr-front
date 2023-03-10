@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { ReactTagify } from "react-tagify";
 import styled from "styled-components";
 
+
 export default function Post({name, descriptionPost,title,description,url,image}) {
 
   // const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Post({name, descriptionPost,title,description,url,image}
             <ImgProfile
             src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
                  <RightPost>
-                     <h1>teste</h1>
+                     <h1>{name}</h1>
                       {/* <ReactTagify
                         tagStyle={tagStyle}
                         mentionStyle={tagStyle}
@@ -41,6 +42,7 @@ export default function Post({name, descriptionPost,title,description,url,image}
                       > */}
                           <h2>{descriptionPost}</h2>
                       {/* </ReactTagify> */}
+        <a href={url} target="_blank" rel="noopener noreferrer" style={{textDecoration: "none", color: "inherit"}}>
               <BoxPostUrl>
         <InfosPostUrl>
             <p>{title}</p>
@@ -50,6 +52,7 @@ export default function Post({name, descriptionPost,title,description,url,image}
 
         <ImgPostUrl src={image}alt="imageUrl"/>
                      </BoxPostUrl>
+                     </a>
                  </RightPost>
                  </BoxPost>
         </>
@@ -60,7 +63,7 @@ const BoxPost = styled.div`
 background: #171717;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 16px;
-height: 276px;
+height: 280px;
 margin-top: 43px;
 margin-bottom: 16px;
 padding: 21px;
@@ -68,7 +71,7 @@ display: flex;
 @media (max-width: 800px) {
     border-radius: 0px;
     margin-top: 19px;
-    height: 234px;
+    max-height: 260px;
   }
 `
 
@@ -76,11 +79,12 @@ const BoxPostUrl = styled.div`
 background: #171717;
 border: 1px solid #4D4D4D;
 border-radius: 11px;
-height: 155px;
+max-height: 200px;
 display: flex;
+text-decoration: none;
 @media (max-width: 800px) {
     margin-top: 19px;
-    height: 115px;
+    max-height: 158px;
   }
 `
 
@@ -93,9 +97,11 @@ border-radius: 50%;
 const InfosPostUrl = styled.div`
 display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60%;
   justify-content: space-between;
   padding: 16px;
+  text-decoration: none;
+  word-wrap: break-word;
   p{
     font-weight: 400;
     font-size: 16px;
@@ -128,7 +134,7 @@ display: flex;
 
 const ImgPostUrl = styled.img`
 width:40%;
-height:100%;
+max-height:100%;
 border-radius: 0px 12px 13px 0px;
 `
 const RightPost = styled.div`
