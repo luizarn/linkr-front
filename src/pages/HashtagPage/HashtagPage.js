@@ -11,24 +11,51 @@ export default function HashtagPage() {
   
   const { hashtag } = useParams();
   const { token } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [arrayTags, setArrayTags] = useState();
 
     
-    // useEffect(() => {
-    //   const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag/${hashtag}`, {
-    //     headers:
-    //       { Authorization: `Bearer ${token}` }
-    //   })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const promise = axios.get(`http://localhost:5000/hashtag/${hashtag}`, {
+      headers:
+        { Authorization: `Bearer ${token}` }
+    })
 
-    //   promise.then(res => {
-    //     setPosts(res.data)
-    //     setArrayTags(res.data.arrayTags)
-    //   })
-  
-    //   promise.catch(err => console.log(err.response.data))
-  
-    // }, []);
+    setIsLoading(true)
+
+    promise.then(res => {
+      setPosts(res.data)
+      setIsLoading(false)
+    })
+
+    promise.catch(err => {
+      alert("An error occured while trying to fetch the posts, please refresh the page")
+      console.log(err.response.data)
+    })
+
+  }, []);
+
+  useEffect(() => {
+    const promise = axios.get(`http://localhost:5000/trending`, {
+      headers:
+        { Authorization: `Bearer ${token}` }
+    })
+
+    setIsLoading(true)
+
+    promise.then(res => {
+      setArrayTags(res.data)
+      setIsLoading(false)
+    })
+
+    promise.catch(err => {
+      alert("An error occured while trying to fetch the posts, please refresh the page")
+      console.log(err.response.data)
+    })
+
+  }, []);
 
     return (
         <>
@@ -36,27 +63,39 @@ export default function HashtagPage() {
                 <Header/>
                 <Container>
                   <P1>
-                  {/* <Title># {hashtag}</Title> */}
+                  <Title># {hashtag}</Title>
 
                   <div>
-                {/* {posts.map((p) => (
-                    <Post
-                    name= {p.user}
-                    descriptionPost = {p.descriptionPost}
-                    title= {p.urlPost.title}
-                    description = {p.urlPost.description}
-                    url = {p.urlPost.url}
-                    image= {p.urlPost.image}
-                    />
-                ))} */}
-                
-                </div>
-                   </P1>
-                   <P2>
-                     <TagsDiv>
-                       {/* <TrendingTags arrayTags={arrayTags}/> */}
-                     </TagsDiv>
-                   </P2>
+              {isLoading ? (
+                <BoxPost>Loading...</BoxPost>
+              ) : (
+                <>
+                  {posts.length === 0 ? (
+
+                    <BoxPost>There are no posts yet</BoxPost>
+
+                  ) : (
+
+                    posts.map((p) => (
+                            <Post
+                              name={p.user}
+                              descriptionPost={p.descriptionPost}
+                              title={p.urlPost.title}
+                              description={p.urlPost.description}
+                              url={p.urlPost.url}
+                              image={p.urlPost.image}
+                            />
+                          ))
+                        )}
+                      </>
+                    )}
+                    </div>
+                  </P1>
+                  <P2>
+                    <TagsDiv>
+                      <TrendingTags arrayTags={arrayTags}/>
+                    </TagsDiv>
+                  </P2>
                 </Container>
             </Content>
 
@@ -112,8 +151,21 @@ const P1 = styled.div`
 `
 
 const P2 = styled.div`
-@media (max-width: 800px) {
-  visibility: none;
-  }
+
 `
 
+const BoxPost = styled.div`
+background: #171717;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 16px;
+height: 276px;
+margin-top: 43px;
+margin-bottom: 16px;
+padding: 21px;
+display: flex;
+@media (max-width: 800px) {
+    border-radius: 0px;
+    margin-top: 19px;
+    height: 234px;
+  }
+`
