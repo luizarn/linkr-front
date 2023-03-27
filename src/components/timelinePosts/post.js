@@ -2,70 +2,137 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { ReactTagify } from "react-tagify";
 import styled from "styled-components";
-import {HiOutlineHeart, HiHeart} from "react-icons/hi";
-import { useState } from "react";
+import { HiOutlineHeart, HiHeart } from "react-icons/hi";
+import { BiEditAlt } from "react-icons/bi";
+import { RiDeleteBin7Fill } from "react-icons/ri";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 
-export default function Post({name, likes, descriptionPost,title,description,url,image}) {
-
-  // const navigate = useNavigate();
-
-  // const tagStyle = {
-  //     fontWeight: 700,
-  //     cursor: 'pointer'
-  // }
-
-  // async function handleTagClick(tag) {
-  //     if(tag.type === 'hashtag'){
-  //       navigate(`/hashtag/${tag.value}`);
-  //     } else if(tag.type === 'user') {
-  //       const id = await getUserId(tag.value); // esse tag.value é o nome do usuário pra poder usar na pesquisa
-  //       navigate(`/user/${id}`)
-  //     }
-  // }
-
-  // async function getUserId(username){
-  //     const user = axios.get('endpoint da query')
-  //     return user.data.id
-
-  // }
+export default function Post({ name, likes, descriptionPost, title, description, url, image, id, postCounter, setPostCounter }) {
 
   const [liked, setLiked] = useState(false);
+  const { userId, token} = useContext(AuthContext);
+  const [editing, setEditing] = useState(false);
+  const [enabledButton, setEnabledButton] = useState(false);
+  const inputRef = useRef(null);
+  const [editedText, setEditedText] = useState(descriptionPost);
+  const [descriptionShown, setDescriptionShown] = useState(descriptionPost);
 
   function handleLike() {
     setLiked(!liked);
   }
 
-  return (
-        <>
-        <BoxPost>
-            <ImgProfile
-            src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt=""/>
-          {liked ? <HiHeart color="red" onClick={handleLike} className="heart-icon"/> : <HiOutlineHeart color="white" onClick={handleLike} className="heart-icon"/>}
-         <LikeCount>{liked ? likes + 2 : likes - 2} likes</LikeCount>
-                 <RightPost>
-                     <h1>{name}</h1>
-                      {/* <ReactTagify
-                        tagStyle={tagStyle}
-                        mentionStyle={tagStyle}
-                        tagClicked={handleTagClick()}
-                      > */}
-                          <h2>{descriptionPost}</h2>
-                      {/* </ReactTagify> */}
-        <a href={url} target="_blank" rel="noopener noreferrer" style={{textDecoration: "none", color: "inherit"}}>
-              <BoxPostUrl>
-        <InfosPostUrl>
-            <p>{title}</p>
-            <h3>{description}</h3>
-            <h4>{url}</h4>
-        </InfosPostUrl>
+  function handleEdit() {
+    if (editing === false) {
+      setEditing(true)
+    }
+    else {
+      setEditing(false)
+    }
+  }
 
-        <ImgPostUrl src={image}alt="imageUrl"/>
-                     </BoxPostUrl>
-                     </a>
-                 </RightPost>
-                 </BoxPost>
-        </>
+  function handleKeyUp(e) {
+    if (e.keyCode === 27) { 
+      setEditing(false); 
+    }
+  }
+
+  useEffect(() => {
+    if (editing) {
+      inputRef.current.focus();
+      document.addEventListener("keyup", handleKeyUp);
+    } else {
+      document.removeEventListener("keyup", handleKeyUp); 
+      setEditedText(descriptionPost)
+    }
+
+  }, [editing]);
+
+  function handleTextareaFocus(e) {
+    const length = e.target.value.length;
+    e.target.setSelectionRange(length, length);
+    const target = e.target;
+    target.scrollTop = target.scrollHeight - target.clientHeight;
+  }
+
+  function handleEnter(e) {
+    if (e.key === 'Enter') {
+      handleSave();
+    }
+  }
+
+
+
+  function handleSave(){
+    setEnabledButton(true)
+    const post = axios.put(`${process.env.REACT_APP_API_URL}/home/${id}`, {description: editedText}, {headers: {Authorization : `Bearer ${token}`}})
+      
+    post.then((res) => {
+      setPostCounter(postCounter + 1)
+      setEditing(false);
+    });
+    post.catch((err) => {
+      console.log(err.response.data.errors)
+    alert('unable to update your post')
+    setEnabledButton(false)
+    })
+  }
+
+
+
+  return (
+    <>
+      <BoxPost>
+        <ImgProfile
+          src={userId.picture_url} alt="" />
+        {liked ? <HiHeart color="red" onClick={handleLike} className="heart-icon" /> : <HiOutlineHeart color="white" onClick={handleLike} className="heart-icon" />}
+        <LikeCount>{liked ? likes + 2 : likes - 2} likes</LikeCount>
+        <RightPost>
+          <TitlePost>
+            <h1>{name}</h1>
+
+            <Icons>
+
+
+              <BiEditAlt color="white" onClick={handleEdit} />
+              <RiDeleteBin7Fill color="white" onClick={() => alert('oi')} className="edit-icons" />
+            </Icons>
+          </TitlePost>
+          {editing ? (
+
+            
+
+            <StyledInput
+              
+              type="text"
+              required={true}
+              ref={inputRef}
+              value={editedText}
+              onChange={(e) => setEditedText(e.target.value)}
+              onFocus={handleTextareaFocus}
+              onKeyDown={handleEnter}
+              disabled={enabledButton}
+            />
+
+          ) : (
+            <h2>{descriptionShown}</h2>
+          )}
+
+          <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit" }}>
+            <BoxPostUrl>
+              <InfosPostUrl>
+                <p>{title}</p>
+                <h3>{description}</h3>
+                <h4>{url}</h4>
+              </InfosPostUrl>
+
+              <ImgPostUrl src={image} alt="imageUrl" />
+            </BoxPostUrl>
+          </a>
+        </RightPost>
+      </BoxPost>
+    </>
   )
 }
 
@@ -199,3 +266,33 @@ const LikeCount = styled.span`
   text-align: center;
   color: #FFFFFF;
 `;
+
+const TitlePost = styled.div`
+display:flex;
+justify-content:space-between;
+`
+
+const Icons = styled.div`
+display:flex;
+justify-content:flex-end;
+.edit-icons {
+margin-left: 12.53px;
+}
+`
+
+const StyledInput = styled.textarea`
+color: #4C4C4C;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+background-color: #FFFFFF;
+border-radius: 7px;
+border: none;
+word-wrap: break-word;
+resize: vertical;
+overflow: auto;
+&:focus {
+    outline: none;
+    border: none;
+  }
+`
