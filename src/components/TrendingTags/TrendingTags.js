@@ -18,7 +18,7 @@ export default function TrendingTags({tags}){
                             {tags.map((hashtag) => (
                                 <li key={hashtag.name} >
                                     <Link to={`/hashtag/${hashtag.name}`} style={{textDecoration:'none'}}>
-                                        <TextH2>
+                                        <TextH2 data-test="hashtag">
                                             # {hashtag.name}
                                         </TextH2>
                                     </Link>

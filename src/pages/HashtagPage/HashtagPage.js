@@ -64,7 +64,7 @@ export default function HashtagPage() {
                 <Header/>
                 <Container>
                   <P1>
-                  <Title># {hashtag}</Title>
+                  <Title data-test="hashtag-title"># {hashtag}</Title>
 
                   <div>
               {isLoading ? (
@@ -93,7 +93,7 @@ export default function HashtagPage() {
                     </div>
                   </P1>
                   <P2>
-                    <TagsDiv>
+                    <TagsDiv data-test="trending">
                       <TrendingTags tags={tags}/>
                     </TagsDiv>
                   </P2>
