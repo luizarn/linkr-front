@@ -9,17 +9,15 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 export default function TimelinePage() {
 
-
-  const { token } = useContext(AuthContext);
+  const { userId, token } = useContext(AuthContext);
   const [url, setUrl] = useState("")
   const [description, setDescription] = useState("")
   const [isPublishing, setIsPublishing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([])
-  const [postCounter, setPostCounter] = useState(0);
+  const [postCounter, setPostCounter] = useState(false);
   const [tags, setTags] = useState([])
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   useEffect(() => {
     const promise = axios.get(`http://localhost:5000/home`, {
       headers:
@@ -33,6 +31,7 @@ export default function TimelinePage() {
     promise.then(res => {
       console.log(res.data)
       setPosts(res.data)
+      console.log(posts)
       setIsLoading(false)
     })
 
@@ -40,7 +39,7 @@ export default function TimelinePage() {
       alert("An error occured while trying to fetch the posts, please refresh the page")
       console.log(err.response.data)
     })
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postCounter]);
 
 
@@ -75,25 +74,26 @@ export default function TimelinePage() {
 
   }
 
-  useEffect(() => {
-    const promise = axios.get(`https://linkr-bzdl.onrender.com/trending`, {
-      headers:
-        { Authorization: `Bearer ${token}` }
-    })
+  
+  // useEffect(() => {
+  //   const promise = axios.get(`https://linkr-bzdl.onrender.com/trending`, {
+  //     headers:
+  //       { Authorization: `Bearer ${token}` }
+  //   })
 
-    setIsLoading(true)
+  //   setIsLoading(true)
 
-    promise.then(res => {
-      setTags(res.data)
-      setIsLoading(false)
-    })
+  //   promise.then(res => {
+  //     setTags(res.data)
+  //     setIsLoading(false)
+  //   })
 
-    promise.catch(err => {
-      alert("An error occured while trying to fetch the posts, please refresh the page")
-      console.log(err.response.data)
-    })
+  //   promise.catch(err => {
+  //     alert("An error occured while trying to fetch the posts, please refresh the page")
+  //     console.log(err.response.data)
+  //   })
 
-  }, []);
+  // }, []);
 
   return (
     <>
@@ -104,7 +104,7 @@ export default function TimelinePage() {
             <Title>timeline</Title>
             <BoxAddPost>
               <ImgProfile
-                src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg" alt="" />
+                src={userId.picture_url} alt="" />
               <RightBoxPost>
                 <h1>What are you going to share today?</h1>
                 <FormPost onSubmit={addPost}>
@@ -118,9 +118,9 @@ export default function TimelinePage() {
             </BoxAddPost>
 
             <div>
-              {/* {isLoading ? (
+               {isLoading ? (
                 <BoxPost>Loading...</BoxPost>
-              ) : */}
+              ) : 
                  <>
                   {posts.length === 0 ? (
 
@@ -130,18 +130,23 @@ export default function TimelinePage() {
 
                     posts.map((p) => (
                       <Post
-                        likes={p.postLike.likes}
+                        likes={p.postLike?.likes}
                         name={p.user}
                         descriptionPost={p.descriptionPost}
                         title={p.urlPost.title}
                         description={p.urlPost.description}
                         url={p.urlPost.url}
                         image={p.urlPost.image}
+                        id={p.id}
+                        postCounter={postCounter} 
+                        setPostCounter={setPostCounter}
                       />
                     ))
                   )}
                 </>
+}
             </div>
+                    
           </P1>
           <P2>
             <TagsDiv>
