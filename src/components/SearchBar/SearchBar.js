@@ -63,7 +63,7 @@ export default function SearchBar() {
             <HiddenBox open={open}>
                 {users.map(({ id, picture_url, username }) => (
                     <HiddenUsers key={id} onClick={() => {
-                        navigate(`/timeline/user/${id}`) 
+                        navigate(`/user/${id}`) 
                         setOpen(false)
                         }} 
                         cursor="pointer">

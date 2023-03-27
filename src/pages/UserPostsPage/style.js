@@ -62,7 +62,29 @@ border-radius: 50%;
 `
 
 const TagsDiv = styled.div`
-   margin-top: 215px;
+   margin-top: 43px;
+`
+
+const Follow = styled.div`
+   margin-top: 140px;
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+`
+
+const FollowButton = styled.button`
+  width: 112px;
+  height: 31px;
+  border-radius: 5px;
+  border: 1px solid #1877F2;
+  background: #1877F2;
+  color: white;
+  font-size: 14px;
+`
+
+const UnfollowButton = styled(FollowButton)`
+  background: #fff;
+  color: #1877F2;
 `
 
 const P1 = styled.div`
@@ -90,4 +112,4 @@ display: flex;
   }
 `
 
-export {Container, TagsDiv, Title, BoxPost, P1, P2, ImgProfile, RightBoxPost, Content};
+export {Container, TagsDiv, Title, BoxPost, P1, P2, ImgProfile,Follow,FollowButton,UnfollowButton, RightBoxPost, Content};
